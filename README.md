@@ -9,9 +9,10 @@ the flat file into a Oracle compliant SQL query string which can then be inserte
 into my SQL query without any manual labor other than a copy and paste.
 
 **So the goal of this project is to be able to write a program that:**
-· Reads a flat file row by row
-· converts the row values from the flat file into a valid **SELECT … FROM DUAL** SQL statement
-· The N rows from the flat file are converted and written to a .txt file as
+
+* Reads a flat file row by row
+* converts the row values from the flat file into a valid **SELECT … FROM DUAL** SQL statement
+* The N rows from the flat file are converted and written to a .txt file as
   N unioned SQL queries FROM DUAL table.
-· The contents of the .txt file can then be added into a valid SQL statement
+* The contents of the .txt file can then be added into a valid SQL statement
   for unioning these data with a similarly formatted query from a database.
