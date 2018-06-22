@@ -60,14 +60,18 @@ for i, date in enumerate(values_as_date):
 values_copy = list(values)
 values_as_varchar_copy = list(values_as_varchar)
 
-for i in range(len(values_copy)):    
-    if i in varchar_indices: # these were indices identified early to need VARCHAR formatting.
-        # from varchar formatted list, pop off first item and update i'th element of values.
-        values_copy[i] = values_as_varchar_copy.pop(0)
-values_copy
-# convert to a comprehension
-values_copy = [values_as_varchar_copy.pop(0) if i in varchar_indices else values_copy[i] for i in range(len(values_copy))]
-values_copy
+# VARCHAR list comprehension
+# if index of original values list  was ID'd as needing VARCHAR format for SQL,
+# then pop off from formatted list and update corresponding elements in original list.
+values_copy = [values_as_varchar_copy.pop(0) if i in varchar_indices 
+               else values_copy[i] 
+               for i in range(len(values_copy))]
+
+# DATE type list comprehension
+values_as_date_copy = list(values_as_date)
+values_copy = [values_as_date_copy.pop(0) if i in date_indices 
+               else values_copy[i] 
+               for i in range(len(values_copy))]
 
 
 
