@@ -1,35 +1,75 @@
 read_path = '/Users/bhoeft/Desktop/temp/fake_simulated_data.csv'
 out_path = '/Users/bhoeft/Desktop/temp/output.txt'
+
+
 ###############################################################################
-# Explore: captures headers row as a list, then prints each row line by line. 
+# Development of query output.  
 ###############################################################################
 
-with open(read_path) as file:
+with open(read_path) as infile:
     
-    for i, line in enumerate(file): # file is an iterable.
+    varchar_indices = (0,1,2,3,6,9,10,12) 
+    date_indices = (13,14,15)
+    
+    # file is an iterable. loop over indices and rows
+    for i, line in enumerate(infile): 
+
         if i == 0:
-            headers = line.rstrip('\n').split(',')
+            headers = line.rstrip('\n').lower().split(',')
         elif i == 1:
+            # parsed list of original values from the CSV row.
             values = line.rstrip('\n').split(',')
             # 1. need to format the anticipated SQL varchar elements.
-            # IN-PROGRESS BELOW
+            values_as_varchar = ["".join(["'", val, "'"]) 
+                                 for i, val in enumerate(values) 
+                                 if i in varchar_indices]
             # 2. need to clean the anticipated SQL date type elements
-            # IN-PROGRESS BELOW
+            values_as_date = ["".join(["TO_DATE('", val, "', ", "'mm/dd/yyyy')"]) 
+                              for i, val in enumerate(values) 
+                              if i in date_indices]
             # 3. need to update the values list with cleaned varchar, date type vals
-            # TO DO
-            # 4. join the value with the header as query string
-            # IN-PROGRESS BELOW
-            # 5. format a select statement for the first FROM dual query.
-            # TO DO
+            # VARCHAR 
+            for i in range(len(values)):
+                if i in varchar_indices:
+                    values[i] = values_as_varchar.pop(0)
+            # DATE type 
+            for i in range(len(values)):
+                if i in date_indices:
+                    values[i] = values_as_date.pop(0)
+            # 4. join each val in values with corresponding  header as a query string
+            sql_select_list = [val + ' AS ' + header for val, header in zip(values, headers)]
+            # 5. format a select statement for initial SQL FROM dual query. NEEDS HEADERS!
+# START HERE. 
+            print('SELECT' + ',\n'.join(sql_select_list) + '\nFROM DUAL\nUNION ALL\n')
+        
         elif i > 1:
-            None
-        else:
-            print(line)
-    
+            # repeat above except no need for HEADERS when unioning rows.  
+            values = line.rstrip('\n').split(',')
+            values_as_varchar = ["".join(["'", val, "'"]) 
+                                 for i, val in enumerate(values) 
+                                 if i in varchar_indices]
+            values_as_date = ["".join(["TO_DATE('", val, "', ", "'mm/dd/yyyy')"]) 
+                              for i, val in enumerate(values) 
+                              if i in date_indices]
+            # need to update the values list with cleaned varchar, date type vals
+            for i in range(len(values)):
+                if i in varchar_indices:
+                    values[i] = values_as_varchar.pop(0)
 
-    print(headers)
+            for i in range(len(values)):
+                if i in date_indices:
+                    values[i] = values_as_date.pop(0)
             
+# START HERE. 
+            print('SELECT' + ',\n'.join(values) + '\nFROM DUAL\nUNION ALL\n')
+        
+        else:
+            print('something else happened. Investigate!')
+        
 
+##############################################################################
+# Testing Code, then moving above.
+##############################################################################
 headers
 values
 for i, val in enumerate(values):
@@ -78,36 +118,11 @@ for i in range(len(values_copy)):
 
 # 4. join the value with the header as query string. GOOD!
 # zip iterates over multiple objects in parallel. 
-[val + ' AS ' + header for val, header in zip(values, headers)]
+sql_select_list_copy = [val + ' AS ' + header for val, header in zip(values_copy, headers)]
 
+'SELECT' + ', '.join(sql_select_list_copy) + ' FROM DUAL UNION ALL' 
+print('SELECT' + ',\n'.join(sql_select_list_copy) + '\nFROM DUAL\nUNION ALL' )
 
-
-
-
-
-
-
-
-
-###############################################################################
-# Development of query output.  
-###############################################################################
-
-with open(read_path) as file:
-    
-    for i, line in enumerate(file): # file is an iterable.
-        if i == 0:
-            headers = line.rstrip('\n').split(',')
-        elif i == 1:
-            values = line.rstrip('\n').split(',')
-            value_header_list = [val + ' AS ' + header 
-                                 for val, header in zip(values, headers)]
-            
-            'SELECT FROM dual UNION ALL'.format()
-        else:
-            print(line)
-    
-    print(headers)
 
 
 
@@ -119,21 +134,10 @@ with open(read_path) as file:
 # Template structure for reading line by line and writing line by line.
 ###############################################################################
 
-with open(read_path) as file:
-    with open(out_path, 'a') as file_out: 
-        for line in file:
+with open(read_path) as infile:
+    with open(out_path, 'a') as outfile: 
+        for line in infile:
             print(line)
-
-
-
-datestr = '1956-01-31'
-year, month, day = datestr.split('-')
-
-
-
-'"Python"'
-
-"'Python'"
 
 
 
