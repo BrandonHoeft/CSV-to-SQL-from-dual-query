@@ -60,19 +60,20 @@ for i, date in enumerate(values_as_date):
 values_copy = list(values)
 values_as_varchar_copy = list(values_as_varchar)
 
-# VARCHAR list comprehension
+# VARCHAR
 # if index of original values list  was ID'd as needing VARCHAR format for SQL,
 # then pop off from formatted list and update corresponding elements in original list.
-values_copy = [values_as_varchar_copy.pop(0) if i in varchar_indices 
-               else values_copy[i] 
-               for i in range(len(values_copy))]
+for i in range(len(values_copy)):
+    if i in varchar_indices:
+        values_copy[i] = values_as_varchar_copy.pop(0)
 
-# DATE type list comprehension
+
+# DATE type 
 values_as_date_copy = list(values_as_date)
-values_copy = [values_as_date_copy.pop(0) if i in date_indices 
-               else values_copy[i] 
-               for i in range(len(values_copy))]
 
+for i in range(len(values_copy)):
+    if i in date_indices:
+        values_copy[i] = values_as_date_copy.pop(0)
 
 
 # 4. join the value with the header as query string. GOOD!
