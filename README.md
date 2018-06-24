@@ -19,9 +19,12 @@ into my SQL query without any manual labor other than a copy and paste.
 
 
 A sample .CSV is included in this repo from [Kaggle Datasets](https://www.kaggle.com/martj42/international-football-results-from-1872-to-2017)
-of the results from all international football matches from 1872 to 2018. This
-sample dataset will be read into the function and output as a
-SELECT FROM dual set of UNION PLSQL statements captured in a .txt file. These
-contents could then be copied and pasted into a query front-end to generate
-a temporary table of data in lieu of being able to write data or create tables
-in your SQL environment. 
+of the results from all international football matches from 1872 to 2018. The
+dataset was subsampled to contain matches from 1998 through June 20, 2018.
+
+The sample dataset can be used to demonstrate the use of the main function
+**convert_to_sql**. The translated output, stored in **translated_output.txt**,
+can be copied and pasted into a query front-end to generate a temporary table of
+data in lieu of being able to write data or create tables in your SQL environment.
+
+*Note in the final output, the final UNION ALL needs to manually be chopped off.*
