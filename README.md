@@ -16,3 +16,12 @@ into my SQL query without any manual labor other than a copy and paste.
   N unioned SQL queries FROM DUAL table.
 * The contents of the .txt file can then be added into a valid SQL statement
   for unioning these data with a similarly formatted query from a database.
+
+
+A sample .CSV is included in this repo from [Kaggle Datasets](https://www.kaggle.com/martj42/international-football-results-from-1872-to-2017)
+of the results from all international football matches from 1872 to 2018. This
+sample dataset will be read into the function and output as a
+SELECT FROM dual set of UNION PLSQL statements captured in a .txt file. These
+contents could then be copied and pasted into a query front-end to generate
+a temporary table of data in lieu of being able to write data or create tables
+in your SQL environment. 
