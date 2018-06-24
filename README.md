@@ -1,3 +1,7 @@
+# Converting flat file rows to Oracle SQL SELECT FROM DUAL statements;
+
+### Problem Definition
+
 [**DUAL** is a table automatically created by Oracle Database. Selecting from a DUAL
 table is useful for computing a constant expression with the SELECT statement.](https://en.wikipedia.org/wiki/DUAL_table)
 
@@ -8,7 +12,9 @@ To do this my goal is a programmatic approach where I can convert each row of
 the flat file into a Oracle compliant SQL query string which can then be inserted
 into my SQL query without any manual labor other than a copy and paste.
 
-**So the goal of this project is to be able to write a program that:**
+### Project goal
+
+So the goal of this project is to be able to write a program that:
 
 * Reads a flat file row by row
 * converts the row values from the flat file into a valid **SELECT … FROM DUAL** SQL statement
@@ -17,6 +23,7 @@ into my SQL query without any manual labor other than a copy and paste.
 * The contents of the .txt file can then be added into a valid SQL statement
   for unioning these data with a similarly formatted query from a database.
 
+### Sample Solution Data
 
 A sample .CSV is included in this repo from [Kaggle Datasets](https://www.kaggle.com/martj42/international-football-results-from-1872-to-2017)
 of the results from all international football matches from 1872 to 2018. The
